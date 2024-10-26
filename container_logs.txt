@@ -1,0 +1,2 @@
+INFO:     192.168.0.1:56469 - "GET /docs HTTP/1.1" 200 OK
+INFO:     192.168.0.1:56469 - "GET /openapi.json HTTP/1.1" 200 OK
