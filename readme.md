@@ -6,6 +6,8 @@ Happy Hack.
 
 # Guide
 
+[**Go to API Documentation**](./api-documentation.md)
+
 테스트시에는 [가상환경](#virtual-machine-run) 만들어서 requirements.txt를 설치한 후 실행하는 것을 권장.
 
 배포 테스트 시에는 도커로 로컬 테스트하고 image 배포 권장.
@@ -45,5 +47,3 @@ pip freeze > requirements.txt
 (주의 : 가상환경이 아닌 로컬환경에서 requirements 업데이트하면 이상한게 덮어 쓰일 수 있으니, 가상환경에서 작업하길 권장)
 
 ## MongoDB
-
-접근권한 주는 게 있는걸로 아는데 그건 일요일에 해볼게요 일단 저 API로 쏘면 DB 만들어지긴 할거야.
