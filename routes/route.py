@@ -8,6 +8,7 @@ from models.user import User, LoginRequest
 from models.user import Pet
 from models.post import Post, Comment, UserPostLike, UserCommentLike, Predict
 from models.hospital import get_hospitals, Location
+from models.infer import Infer
 from config.database import collection_name_hospital, fs_hospital
 from schema.schemas import list_serial
 from bson import ObjectId
@@ -16,6 +17,9 @@ import base64
 import io
 from fastapi.encoders import jsonable_encoder
 from math import radians, cos, sin, sqrt, atan2
+import requests
+from worker.inference_worker import inference_queue
+import asyncio
 
 router = APIRouter()
 
@@ -98,9 +102,25 @@ async def post_hospital(region : Location):
 
     return top_k_hospital
 
-@router.get("/hospital")
-async def get_hospital():
+@router.post("/inference_queue")
+async def inference_queue_handler(infer: Infer):
 
-    global hospital
+    inference_data = {
+        "img": infer.img
+    }
 
-    return hospital
+    loop = asyncio.get_event_loop()
+    future = loop.create_future()
+
+    # 큐에 작업 추가 (데이터와 Future 객체 전달)
+    inference_queue.put((inference_data, future))
+
+    try:
+        # 작업 완료 대기 및 결과 반환
+        result = await future
+        return result
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"An error occurred: {str(e)}"
+        )
