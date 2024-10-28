@@ -11,6 +11,8 @@ client = MongoClient(mongo_url, tls=True)
 
 db = client.account
 
+hospital_db = client.cataract
+
 collection_name_user = db["user"]
 collection_name_doctor = db["doctor"]
 collection_name_pet = db["pet"]
@@ -20,4 +22,9 @@ collection_name_image = db["image"]
 collection_name_user_post_like = db["user_post_like"]
 collection_name_user_comment_like = db["user_comment_like"]
 collection_name_predict = db["predict"]
+
+collection_name_hospital = hospital_db["hospital"]
+
 fs = GridFS(db)
+
+fs_hospital = GridFS(hospital_db)

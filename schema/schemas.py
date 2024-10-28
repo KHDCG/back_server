@@ -84,5 +84,26 @@ def individual_serial(data: dict) -> dict:
     else:
         raise ValueError("Unsupported type for serialization")
 
-def list_serial(users: List[Union[User]]) -> List[dict]:
-    return [individual_serial(user) for user in users]
+def individual_serial_hospital(data: dict) -> dict:
+    if "사업장명" in data:
+        result = {
+            "u_id" : str(data["_id"]),
+            "사업장명": data["사업장명"],
+            "소재지전화": data["소재지전화"],
+            "소재지면적": data["소재지면적"],
+            "소재지전체주소": data["소재지전체주소"],
+            "도로명전체주소": data["도로명전체주소"],
+            "도로명우편번호": data["도로명우편번호"],
+            "좌표정보(x)": data["좌표정보(x)"],
+            "좌표정보(y)": data["좌표정보(y)"],
+            "경도": data["경도"],
+            "위도": data["위도"],
+        }
+        return result
+    else:
+        raise ValueError("Unsupported type for serialization")
+
+
+def list_serial(datas: List[Union[User]]) -> List[dict]:
+    # return [individual_serial(user) for user in users]
+    return [individual_serial_hospital(data) for data in datas]

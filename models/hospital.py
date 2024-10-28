@@ -1,6 +1,7 @@
 from typing import List
 import requests
 import urllib.request
+from pydantic import BaseModel
 
 CLIENT_ID = "AkPRrWfguSW3c8MZrLu1"
 CLIENT_SECRET = "G0ObLwFcPM"
@@ -39,3 +40,8 @@ def get_hospitals(region : str) -> List[dict]:
         hospitals.append(hospital)
     
     return hospitals
+
+class Location(BaseModel):
+    latitude: float
+    longitude: float
+    limit: int
