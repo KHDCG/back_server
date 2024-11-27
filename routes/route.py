@@ -90,8 +90,8 @@ async def post_hospital(region : Location):
 
     if len(near_hospital) > 0:
         dis_near_hospital = []
-        for hospital in near_hospital:
-            distance, hsptl = hospital
+        for near_hsptl in near_hospital:
+            distance, hsptl = near_hsptl
             # make json
             dis_hospital = hsptl
             dis_hospital["distance(km)"] = distance
